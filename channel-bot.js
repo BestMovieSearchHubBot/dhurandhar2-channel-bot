@@ -254,17 +254,20 @@ cron.schedule('0 23 * * *', () => {
 });
 
 // ==================== STARTUP ====================
-// Launch bot and set up webhook / polling
 bot.launch().then(() => {
   console.log('🤖 Dhurandhar 2 Channel Bot started!');
   console.log(`📢 Channel: ${CHANNEL_USERNAME}`);
   console.log('⏰ Scheduled posts at: 9AM, 1PM, 5PM, 8PM, 11PM daily');
   
-  // Test post 1 minute after startup
+  // Test post 1 minute after startup (Keep this)
   setTimeout(() => {
     console.log('🧪 Sending test post...');
     sendRandomPost();
   }, 60000);
+  
+}).catch((err) => {
+  console.error('❌ Bot failed to start:', err);
+});
 
 // Graceful stop handlers
 process.once('SIGINT', () => bot.stop('SIGINT'));
