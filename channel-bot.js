@@ -223,33 +223,34 @@ async function sendRandomPost() {
  *   '0 23 * * *'   – 11:00 PM daily
  */
 
-// Morning post
+// ==================== SCHEDULED POSTS (IST TIMINGS) ====================
+// 8:30 AM IST (3:00 AM UTC)
+cron.schedule('0 3 * * *', () => {
+  console.log('⏰ Scheduled: 8:30 AM IST');
+  sendRandomPost();
+});
+
+// 11:00 AM IST (5:30 AM UTC)
+cron.schedule('30 5 * * *', () => {
+  console.log('⏰ Scheduled: 11:00 AM IST');
+  sendRandomPost();
+});
+
+// 2:30 PM IST (9:00 AM UTC)
 cron.schedule('0 9 * * *', () => {
-  console.log('⏰ Scheduled: 9:00 AM');
+  console.log('⏰ Scheduled: 2:30 PM IST');
   sendRandomPost();
 });
 
-// Afternoon post
-cron.schedule('0 13 * * *', () => {
-  console.log('⏰ Scheduled: 1:00 PM');
+// 5:00 PM IST (11:30 AM UTC)
+cron.schedule('30 11 * * *', () => {
+  console.log('⏰ Scheduled: 5:00 PM IST');
   sendRandomPost();
 });
 
-// Evening post
-cron.schedule('0 17 * * *', () => {
-  console.log('⏰ Scheduled: 5:00 PM');
-  sendRandomPost();
-});
-
-// Night post
-cron.schedule('0 20 * * *', () => {
-  console.log('⏰ Scheduled: 8:00 PM');
-  sendRandomPost();
-});
-
-// Late night post (optional)
-cron.schedule('0 23 * * *', () => {
-  console.log('⏰ Scheduled: 11:00 PM');
+// 8:00 PM IST (2:30 PM UTC)
+cron.schedule('30 14 * * *', () => {
+  console.log('⏰ Scheduled: 8:00 PM IST');
   sendRandomPost();
 });
 
@@ -263,7 +264,7 @@ bot.launch().catch((err) => {
 console.log('🤖 Dhurandhar 2 Channel Bot started!');
 console.log(`📢 Channel: ${CHANNEL_USERNAME}`);
 console.log(`🔗 Main Bot: ${MAIN_BOT_USERNAME}`);
-console.log('⏰ Scheduled posts at: 9AM, 1PM, 5PM, 8PM, 11PM daily');
+console.log('⏰ Scheduled posts at (IST): 8:30AM, 11AM, 2:30PM, 5PM, 8PM daily');
 
 // Test post 1 minute after startup (this will run now)
 setTimeout(() => {
