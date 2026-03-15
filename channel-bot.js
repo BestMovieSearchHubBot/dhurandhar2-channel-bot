@@ -258,14 +258,21 @@ cron.schedule('0 23 * * *', () => {
 bot.launch().then(() => {
   console.log('🤖 Dhurandhar 2 Channel Bot started!');
   console.log(`📢 Channel: ${CHANNEL_USERNAME}`);
-  console.log(`🔗 Main Bot: ${MAIN_BOT_USERNAME}`);
   console.log('⏰ Scheduled posts at: 9AM, 1PM, 5PM, 8PM, 11PM daily');
   
-  // Send a test post 1 minute after startup to verify everything works
+  // Test post 1 minute after startup
   setTimeout(() => {
     console.log('🧪 Sending test post...');
     sendRandomPost();
-  }, 60000); // 60 seconds
+  }, 60000);
+  
+  // FORCE IMMEDIATE TEST - Remove after testing
+  setTimeout(() => {
+    console.log('🧪 Manual test post triggered...');
+    sendRandomPost();
+  }, 10000); // 10 seconds after start
+}).catch((err) => {
+  console.error('❌ Bot failed to start:', err);
 });
 
 // Graceful stop handlers
