@@ -180,11 +180,7 @@ Join the craze:
   }
 ];
 
-// ==================== UTILITY FUNCTIONS ====================
-
-/**
- * Send a random post to the channel
- */
+// ==================== UPDATED FUNCTION WITH BUTTONS ====================
 async function sendRandomPost() {
   try {
     // Pick a random post from the library
@@ -193,19 +189,23 @@ async function sendRandomPost() {
     
     console.log(`📤 Sending post #${randomIndex + 1} at ${new Date().toLocaleString()}`);
     
-    // Currently only text posts are supported
+    // Text post with inline button
     if (post.type === 'text') {
       await bot.telegram.sendMessage(CHANNEL_USERNAME, post.content, {
         parse_mode: 'Markdown',
-        disable_web_page_preview: false
+        disable_web_page_preview: false,
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: '📥 Download Now', url: `https://t.me/${MAIN_BOT_USERNAME.replace('@', '')}` }]
+          ]
+        }
       });
-      console.log('✅ Post sent successfully!');
+      console.log('✅ Post sent successfully with button!');
     }
     // Future: add support for photo, video, etc.
     
   } catch (error) {
     console.error('❌ Failed to send post:', error.message);
-    // Log full error for debugging
     if (error.response) {
       console.error('Telegram API response:', error.response);
     }
