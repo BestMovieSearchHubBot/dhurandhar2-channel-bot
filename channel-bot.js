@@ -180,7 +180,11 @@ Join the craze:
   }
 ];
 
-// ==================== UPDATED FUNCTION WITH BUTTONS ====================
+// ==================== UTILITY FUNCTIONS ====================
+
+/**
+ * Send a random post to the channel
+ */
 async function sendRandomPost() {
   try {
     // Pick a random post from the library
@@ -189,23 +193,19 @@ async function sendRandomPost() {
     
     console.log(`📤 Sending post #${randomIndex + 1} at ${new Date().toLocaleString()}`);
     
-    // Text post with inline button
+    // Currently only text posts are supported
     if (post.type === 'text') {
       await bot.telegram.sendMessage(CHANNEL_USERNAME, post.content, {
         parse_mode: 'Markdown',
-        disable_web_page_preview: false,
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: '📥 Download Now', url: `https://t.me/${MAIN_BOT_USERNAME.replace('@', '')}` }]
-          ]
-        }
+        disable_web_page_preview: false
       });
-      console.log('✅ Post sent successfully with button!');
+      console.log('✅ Post sent successfully!');
     }
     // Future: add support for photo, video, etc.
     
   } catch (error) {
     console.error('❌ Failed to send post:', error.message);
+    // Log full error for debugging
     if (error.response) {
       console.error('Telegram API response:', error.response);
     }
@@ -254,25 +254,18 @@ cron.schedule('0 23 * * *', () => {
 });
 
 // ==================== STARTUP ====================
+// Launch bot and set up webhook / polling
 bot.launch().then(() => {
   console.log('🤖 Dhurandhar 2 Channel Bot started!');
   console.log(`📢 Channel: ${CHANNEL_USERNAME}`);
+  console.log(`🔗 Main Bot: ${MAIN_BOT_USERNAME}`);
   console.log('⏰ Scheduled posts at: 9AM, 1PM, 5PM, 8PM, 11PM daily');
   
-  // FORCE IMMEDIATE POST (Remove after testing)
-  setTimeout(() => {
-    console.log('🚨 FORCE POST - Testing NOW!');
-    sendRandomPost();
-  }, 5000); // 5 seconds after start
-  
-  // Test post 1 minute after startup
+  // Send a test post 1 minute after startup to verify everything works
   setTimeout(() => {
     console.log('🧪 Sending test post...');
     sendRandomPost();
-  }, 60000);
-  
-}).catch((err) => {
-  console.error('❌ Bot failed to start:', err);
+  }, 60000); // 60 seconds
 });
 
 // Graceful stop handlers
