@@ -265,15 +265,6 @@ bot.launch().then(() => {
     console.log('🧪 Sending test post...');
     sendRandomPost();
   }, 60000);
-  
-  // FORCE IMMEDIATE TEST - Remove after testing
-  setTimeout(() => {
-    console.log('🧪 Manual test post triggered...');
-    sendRandomPost();
-  }, 10000); // 10 seconds after start
-}).catch((err) => {
-  console.error('❌ Bot failed to start:', err);
-});
 
 // Graceful stop handlers
 process.once('SIGINT', () => bot.stop('SIGINT'));
