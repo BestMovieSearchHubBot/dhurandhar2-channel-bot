@@ -259,7 +259,13 @@ bot.launch().then(() => {
   console.log(`📢 Channel: ${CHANNEL_USERNAME}`);
   console.log('⏰ Scheduled posts at: 9AM, 1PM, 5PM, 8PM, 11PM daily');
   
-  // Test post 1 minute after startup (Keep this)
+  // FORCE IMMEDIATE POST (Remove after testing)
+  setTimeout(() => {
+    console.log('🚨 FORCE POST - Testing NOW!');
+    sendRandomPost();
+  }, 5000); // 5 seconds after start
+  
+  // Test post 1 minute after startup
   setTimeout(() => {
     console.log('🧪 Sending test post...');
     sendRandomPost();
